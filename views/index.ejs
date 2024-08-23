@@ -1,0 +1,134 @@
+<%- include('partials/header.ejs'); -%>
+
+<header class="grid-item header">
+    <a href="/" class="logo"><span>T</span>o<span>D</span>o</a>
+
+    <!-- nav bar -->
+    <nav class="navbar">
+    <a href="#" id="add-note">LogOut</a>
+    <!-- <a href="/contact-us">Contact Us</a>
+    <a href="/login">Login</a>
+    <a href="/signup">Signup</a> -->
+    </nav> 
+    <!-- Nav Bar ended -->
+</header> 
+
+<main>
+    <div id="out">
+        <div id="today">
+           <div class="heading"> 
+                <h1>Today</h1> 
+            </div>
+            <div class="box">
+                <% for(i=0; i<todayItem.length; i++) { %>
+                    <div class="item">
+                        <form action="/deleteToday" method="post">
+                            <input type="checkbox" onchange="this.form.submit()" name="deleteItemIdToday" value=" <%= todayItem[i].idt %>">
+                        </form>
+
+                        <p id="titlet<%= todayItem[i].idt %>">
+                            <%= todayItem[i].titlet %>
+                        </p>
+
+                        <form class="edit" action="/editToday" method="post">
+                            <input type="hidden" name="updatedItemIdToday" value="<%= todayItem[i].idt %>">
+                            <input id="inputt<%=todayItem[i].idt%>" type="text" name="updatedItemTitleToday" value="<%= todayItem[i].titlet %>" autocomplete="off"
+                              autofocus="true" hidden="true" />
+                            <button id="donet<%=todayItem[i].idt%>" class="edit" type="submit" hidden><img class="icon"
+                                src="/img/checks.svg" alt="tick image"></button>
+                        </form>
+                          <button id="editt<%=todayItem[i].idt%>" class="edit" onclick="handler('t','<%=todayItem[i].idt%>')"><img class="icon"
+                              src="/img/editss.svg" alt="pencil image"></button>
+                        
+                    </div>
+                <% } %>
+                <form class="item" action="/addToday" method="post">
+                    <input type="text" name="newItemToday" placeholder="New Item" autocomplete="off" autofocus="true" />
+                    <button class="add" type="submit" name="list" value="today" >+</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="week">
+            <div class="heading">
+                <h1>This week</h1>
+            </div>
+            <div class="box">
+                <% for(i=0; i<weekItem.length; i++) { %>
+                    <div class="item">
+                        <form action="/deleteWeek" method="post">
+                            <input type="checkbox" onchange="this.form.submit()" name="deleteItemIdWeek" value=" <%= weekItem[i].idw %>">
+                        </form>
+
+                        <p id="titlew<%= weekItem[i].idw %>">
+                            <%= weekItem[i].titlew %>
+                        </p>
+
+                        <form class="edit" action="/editWeek" method="post">
+                            <input type="hidden" name="updatedItemIdWeek" value="<%=  weekItem[i].idw %>">
+                            <input id="inputw<%= weekItem[i].idw %>" type="text" name="updatedItemTitleWeek" value="<%=  weekItem[i].titlew %>" autocomplete="off"
+                              autofocus="true" hidden="true" />
+                            <button id="donew<%= weekItem[i].idw %>" class="edit" type="submit" hidden><img class="icon"
+                                src="/img/checks.svg" alt="tick image"></button>
+                        </form>
+                          <button id="editw<%= weekItem[i].idw%>" class="edit" onclick="handler('w','<%= weekItem[i].idw%>')"><img class="icon"
+                              src="/img/editss.svg" alt="pencil image"></button>
+
+                    </div>
+                <% } %>
+                <form class="item" action="/addWeek" method="post">
+                    <input type="text" name="newItemWeek" placeholder="New Item" autocomplete="off" autofocus="true" />
+                    <button class="add" type="submit" name="list" value="week" >+</button>
+                </form>
+            </div>            
+        </div>
+
+        <div id="month">
+            <div class="heading">
+                <h1>This month</h1>
+            </div>
+            <div class="box">
+                <% for(i=0; i<monthItem.length; i++) { %>
+                    <div class="item">
+                        <form action="/deleteMonth" method="post">
+                            <input type="checkbox" onchange="this.form.submit()" name="deleteItemIdMonth" value=" <%= monthItem[i].idm %>">
+                        </form>
+
+                        <p id="titlem<%= monthItem[i].idm %>">
+                            <%= monthItem[i].titlem %>
+                        </p>
+
+                        <form class="edit" action="/editMonth" method="post">
+                            <input type="hidden" name="updatedItemIdMonth" value="<%= monthItem[i].idm %>">
+                            <input id="inputm<%=monthItem[i].idm%>" type="text" name="updatedItemTitleMonth" value="<%= monthItem[i].titlem %>" autocomplete="off"
+                              autofocus="true" hidden="true" />
+                            <button id="donem<%=monthItem[i].idm%>" class="edit" type="submit" hidden><img class="icon"
+                                src="/img/checks.svg" alt="tick image"></button>
+                        </form>
+                          <button id="editm<%=monthItem[i].idm%>" class="edit" onclick="handler('m','<%= monthItem[i].idm %>')"><img class="icon"
+                              src="/img/editss.svg" alt="pencil image"></button>
+
+                    </div>
+                <% } %>
+                <form class="item" action="/addMonth " method="post">
+                    <input type="text" name="newItemMonth" placeholder="New Item" autocomplete="off" autofocus="true" />
+                    <button class="add" type="submit" name="list" value="month" >+</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<script>
+    function handler(section, id) {
+        document.getElementById("title"+`${section}${id}`).setAttribute("hidden", true);
+        document.getElementById("edit"+`${section}${id}`).setAttribute("hidden", true);
+        document.getElementById("done"+`${section}${id}`).removeAttribute("hidden");
+        document.getElementById("input"+`${section}${id}`).removeAttribute("hidden");
+    }
+</script>
+
+
+
+<%- include('partials/footer.ejs'); -%>
